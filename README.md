@@ -1,6 +1,6 @@
 # MathsQuiz
-Simple math quiz program
-Building a ConsoleUI, then WPFUI
+Simple math quiz program.
+Building a ConsoleUI, then WPFUI.
 
 ## Todo:
 - WPF XAML
