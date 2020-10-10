@@ -10,7 +10,7 @@ namespace ConsoleUI
             do
             {
                 int score = 0;
-                Quiz q = new Quiz(GetQuestionAmount());
+                Quiz q = new Quiz(GetQuizData("Amount of questions: "), GetQuizData("Max operand value: "));
 
                 for (int i = 1; i <= q.Length; i++)
                 {
@@ -34,16 +34,16 @@ namespace ConsoleUI
             if (response == "y") return true;
             else return false;
         }
-        static int GetQuestionAmount()
+        static int GetQuizData(string prompt)
         {
-            Console.Write("How many question on your quiz? ");
+            Console.Write(prompt);
             string rawInput = Console.ReadLine();
             uint verifiedInput;
 
-            while (!UInt32.TryParse(rawInput, out verifiedInput))
+            while (!UInt32.TryParse(rawInput, out verifiedInput) || verifiedInput == 0)
             {
                 Console.WriteLine("Must be positive integer");
-                Console.Write("How many question on your quiz? ");
+                Console.Write(prompt);
                 rawInput = Console.ReadLine();
             }
             return (int)verifiedInput;
