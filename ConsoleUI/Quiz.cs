@@ -9,8 +9,32 @@ namespace ConsoleUI
 {
     public class Quiz
     {
+        public double Percent 
+        {
+            get { return ( Convert.ToDouble(Score) / Convert.ToDouble(Length) ) * 100d; }
+            private set { }
+        }
+        public char Grade
+        {
+            get
+            {
+                if (Percent >= 90d) return 'A';
+                else if (Percent >= 80d) return 'B';
+                else if (Percent >= 70d) return 'C';
+                else if (Percent >= 60d) return 'D';
+                else if (Percent >= 50d) return 'E';
+                else return 'F';
+            }
+        }
+        public int Score { get; private set; }
         public char[] Operators { get; private set; } = { '+', '-', '*', '/' };
         public Dictionary<string, double> Questions { get; private set; } = new Dictionary<string, double>();
+        public int Length
+        {
+            get => Questions.Count();
+            private set { }
+        }
+
         public Quiz(int questionAmount, int maxOperandValue)
         {
             for (int i = 1; i < questionAmount + 1; i++)
@@ -19,21 +43,14 @@ namespace ConsoleUI
                 Questions.Add($"{i}. {question}", answer);
             }
         }
-        public int Length
-        {
-            get => Questions.Count(); 
-            private set { }
-        }
 
-        public bool AskQuestion(int questionNumber)
+        public void AskQuestion(int questionNumber)
         {
             Console.Write($"{Questions.ElementAt(questionNumber - 1).Key} = ");
             double userAnswer = ReadAndVerifyAnswer(questionNumber);
-            if (userAnswer == Questions.ElementAt(questionNumber - 1).Value) return true;
-            else return false;
+            Score += (userAnswer == Questions.ElementAt(questionNumber - 1).Value) ? 1 : 0;
         }
 
-        // Designed for ConsoleUI, need to update for WPF
         private double ReadAndVerifyAnswer(int questionNumber)
         {
             string rawInput = Console.ReadLine();

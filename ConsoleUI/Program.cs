@@ -9,15 +9,13 @@ namespace ConsoleUI
         {
             do
             {
-                int score = 0;
                 Quiz q = new Quiz(GetQuizData("Amount of questions: "), GetQuizData("Max operand value: "));
 
                 for (int i = 1; i <= q.Length; i++)
                 {
-                    bool correct = q.AskQuestion(i);
-                    score += correct ? 1 : 0;
+                    q.AskQuestion(i);
                 }
-                Console.WriteLine($"You got {score} / {q.Length}");
+                Console.WriteLine($"You got {q.Score} / {q.Length} ({Math.Round(q.Percent, 1)}%), giving you a grade {q.Grade}");
             } while (QuizAgain());
             Console.WriteLine("Goodbye");
         }
