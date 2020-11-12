@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Net;
 
 namespace ConsoleUI
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             do
             {
@@ -19,8 +18,8 @@ namespace ConsoleUI
             } while (QuizAgain());
             Console.WriteLine("Goodbye");
         }
-        
-        static bool QuizAgain()
+
+        private static bool QuizAgain()
         {
             string response;
             do
@@ -32,7 +31,8 @@ namespace ConsoleUI
             if (response == "y") return true;
             else return false;
         }
-        static int GetQuizData(string prompt)
+
+        private static int GetQuizData(string prompt)
         {
             Console.Write(prompt);
             string rawInput = Console.ReadLine();

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-namespace ConsoleUI
+namespace MathsQuiz
 {
     public class Quiz
     {
@@ -29,8 +29,8 @@ namespace ConsoleUI
         public int Score { get; private set; }
 
         // Add any operators you want here
-        public char[] Operators { get; private set; } = { '+', '-', '*', '/', '%', '^' };
-        public Dictionary<string, double> Questions { get; private set; } = new Dictionary<string, double>();
+        public char[] Operators { get; private set; } = { '+', '-', '*', '/', '%' };
+        public Dictionary<string, string> Questions { get; private set; } = new Dictionary<string, string>();
 
         public int Length
         {
@@ -42,33 +42,13 @@ namespace ConsoleUI
         {
             for (int i = 1; i < questionAmount + 1; i++)
             {
-                (string question, double answer) = GenerateQuestion(maxOperandValue);
-                Questions.Add($"{i}. {question}", answer);
+                (string question, double answer) = GenerateQuestion(maxOperandValue, Questions.Keys.ToList());
+                Questions.Add($"{question}", Convert.ToString(answer));
             }
         }
 
-        public void AskQuestion(int questionNumber)
-        {
-            Console.Write($"{Questions.ElementAt(questionNumber - 1).Key} = ");
-            double userAnswer = ReadAndVerifyAnswer(questionNumber);
-            Score += (userAnswer == Questions.ElementAt(questionNumber - 1).Value) ? 1 : 0;
-        }
 
-        private double ReadAndVerifyAnswer(int questionNumber)
-        {
-            string rawInput = Console.ReadLine();
-            double verifiedInput;
-
-            while (!Double.TryParse(rawInput, out verifiedInput))
-            {
-                Console.WriteLine("Invalid input, answer must real number(can't be scientific notaion)");
-                Console.Write($"{Questions.ElementAt(questionNumber - 1).Key} = ");
-                rawInput = Console.ReadLine();
-            }
-            return verifiedInput;
-        }
-
-        private (string, double) GenerateQuestion(int maxOperandValue)
+        private (string, double) GenerateQuestion(int maxOperandValue, List<string> preexistingQuestions)
         {
             Random rnd = new Random();
             double answer;
@@ -87,7 +67,8 @@ namespace ConsoleUI
 
                 DataTable dt = new DataTable();
                 answer = Convert.ToDouble(dt.Compute(question, ""));
-            } while (Convert.ToString(answer).Length > Convert.ToString(maxOperandValue ^ 2 + 3).Length);
+            } while (Convert.ToString(answer).Length > Convert.ToString(maxOperandValue ^ 2 + 3).Length
+                    || preexistingQuestions.Contains(question));
             return (question, answer);
         }
     }

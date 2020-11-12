@@ -4,37 +4,72 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MathsQuiz"
-        mc:Ignorable="d" FontSize="20" FontFamily="Adobe Clean UX"
+        mc:Ignorable="d" FontSize="30" FontFamily="Adobe Clean Light"
         Title="Maths Quiz" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="Label" x:Key="QuestionNumberFormatting">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#FF5F5F5F"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="20" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
-    
-        <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
-                   FontSize="40" Grid.Row="1" Grid.ColumnSpan="3" FontWeight="Light" 
-                   FontStyle="Normal" Text="Math Quiz" Margin="0,0,0,20" />
 
-        <TextBlock Grid.Column="1" Grid.Row="2" FontWeight="Bold" Text="Question 1" />
-        <TextBox x:Name="questionOneAnswer" Grid.Column="2" Grid.Row="2" Width="auto" />
-        <WrapPanel Grid.Column="1" Grid.Row="3">
-            <TextBlock Text="Input: " />
-            <TextBlock Text="{Binding Path=Text, ElementName=questionOneAnswer}" />
-        </WrapPanel>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                   FontSize="50" Grid.Row="1" FontWeight="Light"
+                   FontStyle="Normal" Text="Math Quiz" Margin="0,0,0,20" FontFamily="Adobe Clean Light" />
+
+        <Grid Grid.Column="1" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
+            <WrapPanel Grid.Column="0" Grid.Row="0">
+                <Label Style="{StaticResource QuestionNumberFormatting}" Content="1." BorderThickness="0,0,24,0" />
+                <Label Name="lbQuestionOne"/>
+            </WrapPanel>
+            <WrapPanel Grid.Column="0" Grid.Row="1">
+                <Label Style="{StaticResource QuestionNumberFormatting}" Content="2." BorderThickness="0,0,20,0" />
+                <Label Name="lbQuestionTwo"/>
+            </WrapPanel>
+            <WrapPanel Grid.Column="0" Grid.Row="2">
+                <Label Style="{StaticResource QuestionNumberFormatting}" Content="3." BorderThickness="0,0,20,0"/>
+                <Label Name="lbQuestionThree"/>
+            </WrapPanel>
+            <WrapPanel Grid.Column="0" Grid.Row="3">
+                <Label Style="{StaticResource QuestionNumberFormatting}" Content="4." BorderThickness="0,0,20,0"/>
+                <Label Name="lbQuestionFour"/>
+            </WrapPanel>
+            <WrapPanel Grid.Column="0" Grid.Row="4">
+                <Label Style="{StaticResource QuestionNumberFormatting}" Content="5." BorderThickness="0,0,20,0"/>
+                <Label Name="lbQuestionFive"/>
+            </WrapPanel>
+
+            <TextBox Grid.Column="1" Grid.Row="0" Name="questionOneAnswer"/>
+            <TextBox Grid.Column="1" Grid.Row="1" Name="questionTwoAnswer"/>
+            <TextBox Grid.Column="1" Grid.Row="2" Name="questionThreeAnswer"/>
+            <TextBox Grid.Column="1" Grid.Row="3" Name="questionFourAnswer"/>
+            <TextBox Grid.Column="1" Grid.Row="4" Name="questionFiveAnswer"/>
+        </Grid>
+        <Button Grid.Column="1" Grid.Row="3" Content="Mark Answers" Click="MarkAnswersButton_Click" FontSize="20" FontFamily="Adobe Clean Light" />
     </Grid>
 </Window>
