@@ -9,7 +9,7 @@ namespace MathsQuiz
     {
         public double Percent
         {
-            get { return (Convert.ToDouble(Score) / Convert.ToDouble(Length)) * 100d; }
+            get { return (Convert.ToDouble(Score) / Convert.ToDouble(QuestionAmount)) * 100d; }
             private set { }
         }
 
@@ -32,7 +32,7 @@ namespace MathsQuiz
         public char[] Operators { get; private set; } = { '+', '-', '*', '/', '%' };
         public Dictionary<string, string> Questions { get; private set; } = new Dictionary<string, string>();
 
-        public int Length
+        public int QuestionAmount
         {
             get => Questions.Count();
             private set { }
