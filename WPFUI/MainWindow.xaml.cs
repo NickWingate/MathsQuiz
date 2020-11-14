@@ -13,7 +13,8 @@ namespace MathsQuiz
     /// </summary>
     public partial class MainWindow : Window
     {
-        public Quiz q { get; set; } = new Quiz(5, 10);
+        public Quiz q { get; set; } = new Quiz(20, 10);
+        public List<TextBox> QuizQuestionList { get; set; } = new List<TextBox>();
         public MainWindow()
         {
             InitializeComponent();
@@ -30,7 +31,6 @@ namespace MathsQuiz
         }
         private void DefineQuizGrid()
         {
-
             for (int i = 0; i < q.QuestionAmount; i++)
             {
                 Grid questionGrid = new Grid();
@@ -45,7 +45,7 @@ namespace MathsQuiz
                 Label questionNumber = new Label
                 {
                     Content = $"{i + 1})",
-                    Margin = new Thickness(0, 0, 30, 0),
+                    Margin = new Thickness(0, 0, 40, 0),
                     FontWeight = FontWeights.Bold,
                     Foreground = new SolidColorBrush(Colors.SlateGray),
                 };
@@ -59,10 +59,9 @@ namespace MathsQuiz
                 };
                 questionContent.SetValue(Grid.ColumnProperty, 1);
 
-                TextBox answerBox = new TextBox
-                {
-                    Name = $"question{i}Answer"
-                };
+                TextBox answerBox = new TextBox();
+                QuizQuestionList.Add(answerBox);
+
                 answerBox.SetValue(Grid.ColumnProperty, 2);
 
                 questionGrid.Children.Add(answerBox);
@@ -73,13 +72,22 @@ namespace MathsQuiz
         }
         private void MarkAnswersButton_Click(object sender, RoutedEventArgs e)
         {
+            q.Score = 0;
+            for (int i = 0; i < q.QuestionAmount; i++)
+            {
+                if (QuizQuestionList[i].Text == q.Questions.ElementAt(i).Value)
+                {
+                    q.Score++;
+                }
+            }
+            //int totalScore = 0;
             //int totalScore = 0;
             //if (questionOneAnswer.Text == q.Questions.ElementAt(0).Value) { totalScore++; }
             //if (questionTwoAnswer.Text == q.Questions.ElementAt(1).Value) { totalScore++; }
             //if (questionThreeAnswer.Text == q.Questions.ElementAt(2).Value) { totalScore++; }
             //if (questionFourAnswer.Text == q.Questions.ElementAt(3).Value) { totalScore++; }
             //if (questionFiveAnswer.Text == q.Questions.ElementAt(4).Value) { totalScore++; }
-            //MessageBox.Show($"{totalScore} of {q.QuestionAmount}\nThis is {q.Percent}% giving you a {q.Grade}");
+            MessageBox.Show($"{q.Score} of {q.QuestionAmount}\nThis is {q.Percent}% giving you a {q.Grade}");
         }
     }
 }

@@ -26,7 +26,7 @@ namespace MathsQuiz
             }
         }
 
-        public int Score { get; private set; }
+        public int Score { get; set; }
 
         // Add any operators you want here
         public char[] Operators { get; private set; } = { '+', '-', '*', '/', '%' };
